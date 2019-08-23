@@ -1,0 +1,38 @@
+{
+  "name": "@arthur791004/redux-lazy",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "repository": "git@github.com:arthur791004/redux-lazy.git",
+  "author": "arthur791004 <arthur791004@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./pkg",
+    "prebuild": "yarn clean",
+    "build": "pika build",
+    "release": "pika publish --access public",
+    "version": "npm run build"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "~7.4.0",
+    "@pika/pack": "~0.5.0",
+    "@pika/plugin-build-node": "~0.6.0",
+    "@pika/plugin-build-web": "~0.6.0",
+    "@pika/plugin-ts-standard-pkg": "~0.6.0",
+    "redux": "~4.0.4",
+    "rimraf": "~3.0.0",
+    "typescript": "~3.5.3"
+  }
+}
