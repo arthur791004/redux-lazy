@@ -1,6 +1,6 @@
 # redux-lazy
 
-a utils for user to create actions and reducer
+A syntax sugar for user to quickly create types, actions and reducer. You only need to give the mapping of action name and its handler, and then redux-lazy would generate all of you want.
 
 ## Installation
 
@@ -12,31 +12,38 @@ yarn add @arthur791004/redux-lazy
 
 ### reduxLazy
 
+a function needs `actions` and `initialState` as parameters and returns `types`, `actions` and `reducer` for you.
+
 ```ts
-type Action = {
-  type: string;
-  payload: Object;
+interface ActionHandler<State> {
+  (state: State, payload: any): State;
+}
+
+type Actions<State> = {
+  [key: string]: ActionHandler<State>;
 };
 
-type ActionCreator = (payload: Object): Action;
-
-type ActionHandler = (state: Object, payload: Object): Object;
-
-type Reducer = (state: Object, action: Action): Object;
-
-type ReduxLazy = (
-  reduxLazyActions: { [key: string]: ActionHandler },
-  initialState: Object
-): {
-  actions: ActionCreator[];
-  reducer: Reducer;
+type ActionCreators = {
+  [key: string]: ActionCreator<AnyAction>;
 };
+
+type ActionTypes = {
+  [key: string]: string;
+};
+
+interface ReduxLazy<State> {
+  (actions: Actions<State>, initialState: State): {
+    actions: ActionCreators;
+    reducer: Reducer<State, AnyAction>;
+    types: ActionTypes;
+  };
+}
 ```
 
 #### Examples
 
 ```js
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import reduxLazy from '@arthur791004/redux-lazy';
 
 const initialState = {
@@ -56,9 +63,11 @@ const { actions, reducer } = reduxLazy(
   initialState
 );
 
-const store = createStore({
+const reducers = combineReducers({
   counter: reducer,
 });
+
+const store = createStore(reducers);
 
 store.dispatch(actions.increment(5)); // state: { counter: { value: 5 } }
 store.dispatch(actions.decrement(4)); // state: { counter: { value: 1 } }
