@@ -1,6 +1,6 @@
 {
   "name": "@arthur791004/redux-lazy",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "src/index.js",
   "repository": "git@github.com:arthur791004/redux-lazy.git",
   "author": "arthur791004 <arthur791004@gmail.com>",
