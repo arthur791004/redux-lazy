@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./pkg",
-    "prebuild": "yarn clean",
+    "prebuild": "yarn run clean",
     "build": "pika build",
     "release": "pika publish --access public",
-    "version": "npm run build"
+    "version": "yarn run build"
   },
   "@pika/pack": {
     "pipeline": [
@@ -34,5 +34,11 @@
     "redux": "~4.0.4",
     "rimraf": "~3.0.0",
     "typescript": "~3.5.3"
-  }
+  },
+  "keywords": [
+    "redux",
+    "action",
+    "reducer",
+    "types"
+  ]
 }
